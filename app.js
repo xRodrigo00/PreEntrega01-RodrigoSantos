@@ -1,58 +1,52 @@
-//CALCULAR VALOR FINAL DE UN PRODUCTO EN FUNCION DE IMPUESTOS Y DESCUENTOS
-const IVA = 1.21;
-let cocina = 100;
-let lavadora = 200;
-let heladera = 300;
+//DECLARAMOS LAS VARIABLES DE LOS PRODUCTOS
+let cocina = 10000;
+let lavadora = 15000;
+let heladera = 20000;
 
-function descuentos(producto, disponibilidad, descuento) {
-  if (disponibilidad == "si" && descuento == 15) {
-    let precio_final = producto * IVA - producto * IVA * 0.15;
-    console.log("El precio que tiene que pagar es de: " + precio_final);
-  } else if (disponibilidad == "si" && descuento == 20) {
-    let precio_final = producto * IVA - producto * IVA * 0.2;
-    console.log("El precio que tiene que pagar es de: " + precio_final);
-  } else if (disponibilidad == "si" && descuento == 25) {
-    let precio_final = producto * IVA - producto * IVA * 0.25;
-    console.log("El precio que tiene que pagar es de: " + precio_final);
-  } else if (disponibilidad == "no") {
-    let precio_final = producto * IVA;
-    console.log("El precio que tiene que pagar es de: " + precio_final);
+function calcularDescuento(precio, descuento) {
+  let rebaja;
+  if (descuento == "cod10") {
+    rebaja = (precio * 10) / 100;
+    alert("El descuento que tiene es de " + rebaja + " pesos.");
+  } else if (descuento == "cod15") {
+    rebaja = (precio * 15) / 100;
+    alert("El descuento que tiene es de " + rebaja + " pesos.");
+  } else if (descuento == "cod20") {
+    rebaja = (precio * 20) / 100;
+    alert("El descuento que tiene es de " + rebaja + " pesos.");
+  } else {
+    rebaja = 0;
+    alert("EL CUPON INGRESADO NO ES VALIDO");
+  }
+  return rebaja;
+}
+
+function calcularPrecio(precio) {
+  let descuento = prompt("Ingrese el cupon de descuento").toLowerCase();
+  let precioFinal = precio - calcularDescuento(precio, descuento);
+  return precioFinal;
+}
+
+function elegirProducto() {
+  producto = prompt("Cocina - Lavadora - Heladera  /  SALIR").toLowerCase();
+  let resultado;
+  if (producto == "cocina") {
+    resultado = calcularPrecio(cocina);
+    alert("El monto a pagar es de " + resultado + ' pesos.');
+  } else if (producto == "lavadora") {
+    resultado = calcularPrecio(lavadora);
+    alert("El monto a pagar es de " + resultado + ' pesos.');
+  } else if (producto == "heladera") {
+    resultado = calcularPrecio(heladera);
+    alert("El monto a pagar es de " + resultado + ' pesos.');
+  } else if (producto == "salir") {
+    alert("Gracias por visitarnos, vuelva pronto!");
+  } else {
+    alert("No contamos con ese producto.");
   }
 }
 
-let producto;
+let producto = alert('Ingrese el producto que desea comprar.')
 while (producto != "salir") {
-  producto = prompt(
-    "Seleccione el producto: COCINA - LAVADORA - HELADERA  /  SALIR "
-  ).toLowerCase();
-  let disponibilidad;
-  let descuento;
-
-  if (producto == "cocina") {
-    disponibilidad = prompt(
-      "Cuenta con algun descuento disponible? SI / NO"
-    ).toLowerCase();
-    descuento = parseInt(
-      prompt("Que cupon de descuento de tiene en %? 15 / 20 / 25")
-    );
-    descuentos(cocina, disponibilidad, descuento);
-  } else if (producto == "lavadora") {
-    disponibilidad = prompt(
-      "Cuenta con algun descuento disponible? SI / NO"
-    ).toLowerCase();
-    descuento = parseInt(
-      prompt("Que cupon de descuento de tiene en %? 15 / 20 / 25")
-    );
-    descuentos(lavadora, disponibilidad, descuento);
-  } else if (producto == "heladera") {
-    disponibilidad = prompt(
-      "Cuenta con algun descuento disponible? SI / NO"
-    ).toLowerCase();
-    descuento = parseInt(
-      prompt("Que cupon de descuento de tiene en %? 15 / 20 / 25")
-    );
-    descuentos(heladera, disponibilidad, descuento);
-  } else if (producto != 'salir'){
-    console.log("Producto no valido");
-  }
+  elegirProducto();
 }
